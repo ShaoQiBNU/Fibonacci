@@ -6,6 +6,7 @@
 > 斐波那契数列，F[n]=F[n-1]+F[n-1],F[0]=1,F[1]=1。写成矩阵形式为：
 
 ![image](https://github.com/ShaoQiBNU/Fibonacci/blob/master/images/2.png)
+
 ![image](https://github.com/ShaoQiBNU/Fibonacci/blob/master/images/3.png)
 
 > 这两幅图完美诠释了斐波那契数列如何用矩阵来实现。优化的算法，将2x2矩阵的幂改为n，去掉后边的乘，直接输出矩阵中的res[0][0]位置的数就是下标与幂相等的斐波那契数。
