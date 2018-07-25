@@ -5,7 +5,10 @@
 
 > 斐波那契数列，F[n]=F[n-1]+F[n-1],F[0]=1,F[1]=1。写成矩阵形式为：
 
+![image](https://github.com/ShaoQiBNU/Fibonacci/blob/master/images/2.png)
+![image](https://github.com/ShaoQiBNU/Fibonacci/blob/master/images/3.png)
 
+> 这两幅图完美诠释了斐波那契数列如何用矩阵来实现。优化的算法，将2x2矩阵的幂改为n，去掉后边的乘，直接输出矩阵中的res[0][0]位置的数就是下标与幂相等的斐波那契数。
 
 # 二. 矩阵相乘
 
@@ -68,4 +71,61 @@ A^9
         
         return ans
 ```
+
+# 四. 斐波那契矩阵快速幂求解
+
+> 根据以上的算法过程，可以得到斐波那契矩阵快速幂求解方法，代码如下：
+
+```python
+
+# -*- coding:utf-8 -*-
+class Fibonacci:
+    
+    def getNthNumber(self, n):
+
+        ###### 基础项 ######
+        res=[[1,1],[1,0]]
+
+        ###### 快速幂求解 ######
+        res=self.fast_pow(res,n)
+
+        return res[0][0]%1000000007
+    
+    ###### 快速幂求解 ######
+    def fast_pow(self,base,n):
+        
+        ans=[[1,0],[0,1]]
+        
+        while(n):
+            
+            ##### 判断奇偶 #####
+            if n&1:
+                ans=self.mutiply(ans,base)
+            
+            ##### 自身相乘 #####
+            base=self.mutiply(base,base)
+            
+            ##### 等价于n=n/2 #####
+            n=n>>1
+        
+        return ans
+    
+    ###### 矩阵乘法 ######
+    def mutiply(self,a,b):
+
+        temp=[[0,0],[0,0]]
+
+        for i in range(len(a)):
+            for j in range(len(b)):
+                for k in range(len(temp)):
+                    temp[i][j]+=a[i][k]*b[k][j]%1000000007
+        
+        return temp
+
+if __name__ == '__main__':
+    f=Fibonacci()
+    print(f.getNthNumber(7))
+```
+
+
 
